@@ -15,7 +15,8 @@ class ListingsController < ApplicationController
 
     @geojson = convert_to_geojson(listings)
     # hash = RGeo::GeoJSON.encode(geojson_listings)
-    render html: @geojson
+    # render :index
+    render json: @geojson
   end
 
 private
@@ -70,6 +71,7 @@ private
     feature_collection["features"] = feature_collection_features
 
     feature_collection
+    # feature_collection_features
   end
   #
   # def convert_to_geojson(listings)
