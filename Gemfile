@@ -1,13 +1,11 @@
 source 'https://rubygems.org'
 gem 'pry-rails'
-gem 'byebug'
 gem 'newrelic_rpm'
 # gem 'rgeo'
-# gem 'pg'
 gem 'rgeo-geojson'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
+# gem 'pg'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
