@@ -15,33 +15,59 @@ class ListingsController < ApplicationController
 
     @geojson = convert_to_geojson(listings)
     # hash = RGeo::GeoJSON.encode(geojson_listings)
-    render text: @geojson
+    render html: @geojson
   end
 
 private
+
+  # def convert_to_geojson(listings)
+  #   feature_collection = {}
+  #   feature_collection_features = []
+  #   listings.each do |listing|
+  #     properties = {
+  #       id: listing["id"],
+  #       price: listing["price"],
+  #       street: listing["street"],
+  #       bedrooms: listing["bedrooms"],
+  #       bathrooms: listing["bathrooms"],
+  #       sq_ft: listing["sq_ft"]
+  #     }
+  #     feature = {
+  #       type: "feature",
+  #       geometry: { type: "Point", coordinates: [listing["lat"],listing["lng"]] },
+  #       properties: properties
+  #     }
+  #     feature_collection_features << feature
+  #   end
+  #
+  #   feature_collection[:type] = "FeatureCollection"
+  #   feature_collection[:features] = feature_collection_features
+  #
+  #   feature_collection
+  # end
 
   def convert_to_geojson(listings)
     feature_collection = {}
     feature_collection_features = []
     listings.each do |listing|
       properties = {
-        id: listing["id"],
-        price: listing["price"],
-        street: listing["street"],
-        bedrooms: listing["bedrooms"],
-        bathrooms: listing["bathrooms"],
-        sq_ft: listing["sq_ft"]
+        "id" => listing["id"],
+        "price"  => listing["price"],
+        "street" => listing["street"],
+        "bedrooms" => listing["bedrooms"],
+        "bathrooms" => listing["bathrooms"],
+        "sq_ft" => listing["sq_ft"]
       }
       feature = {
-        type: "feature",
-        geometry: { type: "Point", coordinates: [listing["lat"],listing["lng"]] },
-        properties: properties
+        "type" => "feature",
+        "geometry" => { "type" => "Point", "coordinates" => [listing["lat"],listing["lng"]] },
+        "properties" => properties
       }
       feature_collection_features << feature
     end
 
-    feature_collection[:type] = "FeatureCollection"
-    feature_collection[:features] = feature_collection_features
+    feature_collection["type"] = "FeatureCollection"
+    feature_collection["features"] = feature_collection_features
 
     feature_collection
   end
