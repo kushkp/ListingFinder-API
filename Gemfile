@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 gem 'pry-rails'
 gem 'byebug'
+gem 'newrelic_rpm'
 # gem 'rgeo'
+# gem 'pg'
 gem 'rgeo-geojson'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
