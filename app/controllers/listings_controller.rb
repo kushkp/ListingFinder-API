@@ -1,7 +1,5 @@
 require 'set'
 require 'rgeo/geo_json'
-# require 'geojson'
-# require 'geo_ruby'
 
 class ListingsController < ApplicationController
   def index
@@ -11,41 +9,20 @@ class ListingsController < ApplicationController
     end
 
     listings = filter_by_data(search_by, params)
-
-
     @geojson = convert_to_geojson(listings)
-    # hash = RGeo::GeoJSON.encode(geojson_listings)
-    # render :index
+
     render json: @geojson
   end
 
 private
-
-  # def convert_to_geojson(listings)
-  #   feature_collection = {}
-  #   feature_collection_features = []
-  #   listings.each do |listing|
-  #     properties = {
-  #       id: listing["id"],
-  #       price: listing["price"],
-  #       street: listing["street"],
-  #       bedrooms: listing["bedrooms"],
-  #       bathrooms: listing["bathrooms"],
-  #       sq_ft: listing["sq_ft"]
-  #     }
-  #     feature = {
-  #       type: "feature",
-  #       geometry: { type: "Point", coordinates: [listing["lat"],listing["lng"]] },
-  #       properties: properties
-  #     }
-  #     feature_collection_features << feature
-  #   end
-  #
-  #   feature_collection[:type] = "FeatureCollection"
-  #   feature_collection[:features] = feature_collection_features
-  #
-  #   feature_collection
-  # end
+  SEARCH_PARAMS = Set.new [
+    "min_price",
+    "max_price",
+    "min_bed",
+    "max_bed",
+    "min_bath",
+    "max_bath",
+  ]
 
   def convert_to_geojson(listings)
     feature_collection = {}
@@ -71,33 +48,7 @@ private
     feature_collection["features"] = feature_collection_features
 
     feature_collection
-    # feature_collection_features
   end
-  #
-  # def convert_to_geojson(listings)
-  #   feature_collection = []
-  #   listings.each do |listing|
-  #     properties = {
-  #       "id" => listing["id"],
-  #       "price" => listing["price"],
-  #       "street" => listing["street"],
-  #       "bedrooms" => listing["bedrooms"],
-  #       "bathrooms" => listing["bathrooms"],
-  #       "sq_ft" => listing["sq_ft"]
-  #     }
-  #
-  #     factory = RGeo::GeoJSON::EntityFactory.instance
-  #     factory.feature("Point", properties)
-  #
-  #     # str = "{'type':'Feature','geometry':{'type':'Point','coordinates':[#{listing.lat},#{listing.lng}]},'properties':{ 'id': #{listing.id}, 'price': #{listing.price}, 'street': #{listing.street}, 'bedrooms': #{listing.bedrooms}, 'bathrooms': #{listing.bathrooms}, 'sq_ft': #{listing.sq_ft}}}"
-  #
-  #     debugger
-  #     feature = RGeo::GeoJSON.decode(str, :json_parser => :json)
-  #     feature_collection << feature
-  #   end
-  #
-  #   feature_collection
-  # end
 
   def filter_by_data(options, params)
     listings = Listing.all
@@ -121,14 +72,4 @@ private
 
     listings
   end
-
-
-  SEARCH_PARAMS = Set.new [
-    "min_price",
-    "max_price",
-    "min_bed",
-    "max_bed",
-    "min_bath",
-    "max_bath",
-  ]
 end

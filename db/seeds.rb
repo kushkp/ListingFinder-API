@@ -17,7 +17,7 @@
 #     lng: -122.4143
 #   })
 
-lines = File.readlines("listings_short.csv")
+lines = File.readlines("listings.csv")
 
 i = 1
 
