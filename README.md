@@ -2,9 +2,10 @@
 
 ##Description
 
-  An API that filters listings by price, No. of bathrooms, and No. of bedrooms.
+  An API written in Ruby that filters listings by price, No. of bathrooms, and No. of bedrooms.
+  Takes query string input and returns listings in GeoJSON format for easy integration with maps.
 
 ##Future Plans
   - Paginate listing results to reduce load time
-  - Reduce number of queries to 1
-  - Proximity search with given location input
+  - Ability to search by location and given radius
+  - Implement create and edit routes to add and modify listings
