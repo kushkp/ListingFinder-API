@@ -17,12 +17,11 @@
 #     lng: -122.4143
 #   })
 
-lines = File.readlines("listings.csv")
+f = File.open("listings.csv", "r")
 
-i = 1
-
-while i < lines.length
-  data = lines[i].chomp.split(",")
+f.each_with_index do |line, idx|
+  next if idx == 0
+  data = line.chomp.split(",")
 
   Listing.create!({
     street: data[1],
@@ -34,6 +33,6 @@ while i < lines.length
     lat: data[7].to_f,
     lng: data[8].to_f
   })
-
-  i += 1
 end
+
+f.close
