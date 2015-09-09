@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 gem 'pry-rails'
 gem 'byebug'
+gem 'rgeo'
+gem 'rgeo-geojson'
+gem 'nofxx-georuby'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use sqlite3 as the database for Active Record
