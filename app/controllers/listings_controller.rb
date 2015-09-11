@@ -28,20 +28,7 @@ private
     feature_collection = {}
     feature_collection_features = []
     listings.each do |listing|
-      properties = {
-        "id" => listing["id"],
-        "price"  => listing["price"],
-        "street" => listing["street"],
-        "bedrooms" => listing["bedrooms"],
-        "bathrooms" => listing["bathrooms"],
-        "sq_ft" => listing["sq_ft"]
-      }
-      feature = {
-        "type" => "feature",
-        "geometry" => { "type" => "Point", "coordinates" => [listing["lat"],listing["lng"]] },
-        "properties" => properties
-      }
-      feature_collection_features << feature
+      feature_collection_features << create_feature(listing)
     end
 
     feature_collection["type"] = "FeatureCollection"
@@ -50,26 +37,52 @@ private
     feature_collection
   end
 
+  def create_feature(listing)
+    properties = {
+      "id" => listing["id"],
+      "price"  => listing["price"],
+      "street" => listing["street"],
+      "bedrooms" => listing["bedrooms"],
+      "bathrooms" => listing["bathrooms"],
+      "sq_ft" => listing["sq_ft"]
+    }
+    feature = {
+      "type" => "feature",
+      "geometry" => { "type" => "Point", "coordinates" => [listing["lat"],listing["lng"]] },
+      "properties" => properties
+    }
+  end
+
   def filter_by_data(options, params)
-    listings = Listing.all
+    where_query = ""
+    query_values = []
 
     options.each do |option|
-      case option
-      when "min_price"
-        listings = listings.where("price >= ?", params["min_price"])
-      when"max_price"
-        listings = listings.where("price <= ?", params["max_price"])
-      when "min_bed"
-        listings = listings.where("bedrooms >= ?", params["min_bed"])
-      when "max_bed"
-        listings = listings.where("bedrooms <= ?", params["max_bed"])
-      when "min_bath"
-        listings = listings.where("bathrooms >= ?", params["min_bath"])
-      when "max_bath"
-        listings = listings.where("bathrooms <= ?", params["max_bath"])
+      if where_query == ""
+        where_query += single_where_cond(option)
+      else
+        where_query += " AND " + single_where_cond(option)
       end
+      query_values << "#{params[option]}"
     end
 
-    listings
+    Listing.where(where_query, *query_values)
+  end
+
+  def single_where_cond(option)
+    case option
+    when "min_price"
+      return "price >= ?"
+    when "max_price"
+      return "price <= ?"
+    when "min_bed"
+      return "bedrooms >= ?"
+    when "max_bed"
+      return "bedrooms <= ?"
+    when "min_bath"
+      return "bathrooms >= ?"
+    when "max_bath"
+      return "bathrooms <= ?"
+    end
   end
 end
