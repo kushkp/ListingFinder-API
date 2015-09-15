@@ -25,7 +25,7 @@ Live: [ListingFinder-API][live]
 
 
 ##Future Plans
-  - Refactor ActiveRecord query
-  - Paginate listing results to reduce load time
-  - Ability to search by location and given radius
-  - Implement create and edit routes to add and modify listings
+  - [x] Refactor ActiveRecord query
+  - [ ] Paginate listing results to reduce load time
+  - [ ] Ability to search by location and given radius
+  - [ ] Implement create and edit routes to add and modify listings

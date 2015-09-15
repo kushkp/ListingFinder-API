@@ -24,6 +24,8 @@ private
     "max_bath",
     "min_sqft",
     "max_sqft"
+    # "lat", "lng",
+    # "radius"
   ]
 
   def convert_to_geojson(listings)
@@ -60,6 +62,8 @@ private
     query_values = []
 
     options.each do |option|
+      # next if option == "lat" || option == "lng" || option == "radius"
+
       if where_query == ""
         where_query += single_where_cond(option)
       else
