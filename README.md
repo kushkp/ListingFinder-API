@@ -11,12 +11,18 @@ Live: [ListingFinder-API][live]
 ##Usage
 
   User may search for listings by appending a query string with the following parameters:
-  - min_price
-  - max_price
-  - min_bed
-  - max_bed
-  - min_bath
-  - max_bath
+  - min_price: The minimum listing price in dollars.
+  - max_price: The maximum listing price in dollars.
+  - min_bed: The minimum number of bedrooms.
+  - max_bed: The maximum number of bedrooms.
+  - min_bath: The minimum number of bathrooms.
+  - max_bath: The maximum number of bathrooms.
+  - min_sqft: The minimum amount of sq footage.
+  - max_sqft: The maximum amount of sq footage.
+
+  Append query string to URL:
+  GET /listings?min_price=100000&max_price=200000&min_bed=2&max_bed=2&min_bath=2&max_bath=2
+
 
 ##Future Plans
   - Refactor ActiveRecord query

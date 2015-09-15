@@ -22,6 +22,8 @@ private
     "max_bed",
     "min_bath",
     "max_bath",
+    "min_sqft",
+    "max_sqft"
   ]
 
   def convert_to_geojson(listings)
@@ -83,6 +85,10 @@ private
       return "bathrooms >= ?"
     when "max_bath"
       return "bathrooms <= ?"
+    when "min_sqft"
+      return "sq_ft >= ?"
+    when "max_sqft"
+      return "sq_ft <= ?"
     end
   end
 end
